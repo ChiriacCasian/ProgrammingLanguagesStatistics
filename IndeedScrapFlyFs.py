@@ -6,16 +6,14 @@ from scrapfly import ScrapflyClient, ScrapeConfig
 from bs4 import BeautifulSoup
 from scrapfly import *
 
-scrapfly = ScrapflyClient(key="scp-live-9751df464c634d47ba47054350e0ee67")
-
 def get_page_data(url):
+    scrapfly = ScrapflyClient(key="scp-live-9751df464c634d47ba47054350e0ee67")
     result = scrapfly.scrape(
     ScrapeConfig(
         url=url,
         asp=True,
         )
     )
-
     data = re.findall(r'window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});', result.content)
     data = json.loads(data[0])
     return {
@@ -38,52 +36,25 @@ def next_page(url):
     intCurrentNr += 10
     return url[:index-len(currentNr)] + str(intCurrentNr)
 
-def connect_to_mysql():
+# returns a cursor and a connection to the database, don t forget to .close() them
+def connect_to_mysql(host, port, user, password, database):
     # to start mysql server : services -> Mysql80 -> start
     try:
         # Connect to MySQL
         indeed_db = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="12345rita",
-            database="indeed_db"
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database
         )
-
         cursor = indeed_db.cursor()
-
+        return (cursor, indeed_db)
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-    finally:
-        # Close connection
-        cursor.close()
-        indeed_db.close()
+        return f"Error: {err}", None
 
-lang = "java"
-url="https://nl.indeed.com/jobs?q="+lang+"&l=netherlands&start=0"
-
-while(jobs := get_page_data(url)["results"]):
-    for job in jobs:
-        #print(job.keys())
-        print(job["createDate"])
-        print(job["jobLocationCity"])
-        print(job["title"])
-        print(job["salarySnippet"])
-        print(job["jobCardRequirementsModel"])
-        print('----------------------------------------\n')
-    url = next_page(url)
-
-
-
-    # Insert data
-    query = "INSERT INTO jobstable (name, age, department) VALUES (%s, %s, %s)"
-    data = ("John Doe", 29, "Engineering")
+def insert_into_jobstable(cursor, db, data):
+    query = "INSERT INTO jobstable (id, lang, assoc_lang, salary, date, lvl) VALUES (%s, %s, %s, %s, %s, %s)"
     cursor.execute(query, data)
-
-    # Commit the transaction
-    indeed_db.commit()
-
-#jobs = get_page_data(url)["results"]
-
-
-    # soup = BeautifulSoup(job["jobCardContent"], 'html.parser')
-    # print(soup.prettify() + '\n')
+    db.commit()
