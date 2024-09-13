@@ -54,7 +54,8 @@ def connect_to_mysql(host, port, user, password, database):
         print(f"Error: {err}")
         return f"Error: {err}", None
 
+# lang is a number representing the language 1 is java, lvl is an int representing senior/junior/medior
 def insert_into_jobstable(cursor, db, data):
-    query = "INSERT INTO jobstable (id, lang, assoc_lang, salary, date, lvl) VALUES (%s, %s, %s, %s, %s, %s)"
+    query = "INSERT INTO jobstable (lang, assoc_lang, city, salary, date, lvl) VALUES (%s, %s, %s, %s, %s, %s)"
     cursor.execute(query, data)
     db.commit()

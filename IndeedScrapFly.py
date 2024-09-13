@@ -11,7 +11,8 @@ from IndeedScrapFlyFs import *
 
 lang = "java"
 url="https://nl.indeed.com/jobs?q="+lang+"&l=netherlands&start=0"
-i = 0
+cursor, indeed_db = connect_to_mysql("localhost", 3406, "root", "12345rita", "indeed_db")
+pages = 0 # number of pages to scrape
 while(jobs := get_page_data(url)["results"]):
     for job in jobs:
         #print(job.keys())
@@ -34,7 +35,6 @@ while(jobs := get_page_data(url)["results"]):
         salaryNum = None
         try:
             salaryString = job["salarySnippet"]["text"]
-            print(salaryString)
             salary = re.findall(r'\d+', salaryString)
             numbers = []
             if(len(salary) == 4):
@@ -53,18 +53,20 @@ while(jobs := get_page_data(url)["results"]):
         except:
             print("No salary given")
             salaryNum = None
+        if(id is not None):
+            # id, lang, assoc_lang, city, salary, date, lvl
+            data = (1, None, city, salaryNum, mysqlDate, 3)
+            insert_into_jobstable(cursor, indeed_db, data)
     url = next_page(url)
-    i += 1
-    if(i > 1):
+    pages += 1
+    if(pages > 2):
         break
 
-sys.exit()
-
-cursor, indeed_db = connect_to_mysql("localhost", 3406, "root", "12345rita", "indeed_db")
-data = (12, 1, 5, 3200, "2021-09-12", 3)
-insert_into_jobstable(cursor, indeed_db, data)
 cursor.close()
 indeed_db.close()
 
-    # soup = BeautifulSoup(job["jobCardContent"], 'html.parser')
-    # print(soup.prettify() + '\n')
+# cursor, indeed_db = connect_to_mysql("localhost", 3406, "root", "12345rita", "indeed_db")
+# data = (12, 1, 5, 3200, "2021-09-12", 3)
+# insert_into_jobstable(cursor, indeed_db, data)
+# cursor.close()
+# indeed_db.close()
