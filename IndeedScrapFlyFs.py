@@ -15,11 +15,15 @@ def get_page_data(url):
         )
     )
     data = re.findall(r'window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});', result.content)
-    data = json.loads(data[0])
-    return {
-        "results": data["metaData"]["mosaicProviderJobCardsModel"]["results"],
-        "meta": data["metaData"]["mosaicProviderJobCardsModel"]["tierSummaries"],
-    }
+    try:
+        data = json.loads(data[0])
+        return {
+            "results": data["metaData"]["mosaicProviderJobCardsModel"]["results"],
+            "meta": data["metaData"]["mosaicProviderJobCardsModel"]["tierSummaries"],
+        }
+    except:
+        print("No page data")
+        return {"results": []}
 
 def next_page(url):
     index = url.find("start=")
@@ -59,3 +63,12 @@ def insert_into_jobstable(cursor, db, data):
     query = "INSERT INTO jobstable (lang, assoc_lang, city, salary, date, lvl) VALUES (%s, %s, %s, %s, %s, %s)"
     cursor.execute(query, data)
     db.commit()
+def progLang_to_code(progLang):
+    switcher = {
+        "java": 1,
+        "javascript": 2,
+        "python": 3,
+        "c++": 4,
+        "kotlin": 5
+    }
+    return switcher.get(progLang.lower(), 0) # 0 is the mistery language
