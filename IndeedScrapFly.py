@@ -52,13 +52,13 @@ def update_jobstable(progLang, jobLang, maxpages, schema_name):
                     else: # if there is only one number then its the salary
                         salaryNum = numbers[0]
             except:
-                print("No salary given")
                 salaryNum = None
             if(id is not None):
                 # id, lang, assoc_lang, city, salary, date, lvl
                 data = (progLang_to_code(progLang), None, city, salaryNum, mysqlDate, 3)
                 insert_into_jobstable(cursor, indeed_db, data)
         url = next_page(url)
+        print("pages")
         pages += 1
         if(pages > maxpages):
             break
@@ -74,7 +74,9 @@ def clear_jobstable(schema_name, table_name):
     db.close()
     print("jobstable cleared !!")
 
-clear_jobstable("indeed_db", "jobstable")
-clear_jobstable("indeed_db_nl", "jobstable")
-update_jobstable("java", "en", 100, "indeed_db")
-update_jobstable("java", "nl", 100, "indeed_db_nl")
+# Everythinng about scrapers : https://www.reddit.com/r/webscraping/comments/zg93ht/what_is_the_best_free_web_scraping_tool/
+
+#clear_jobstable("indeed_db", "jobstable")
+#clear_jobstable("indeed_db_nl", "jobstable")
+#update_jobstable("java", "en", 10, "indeed_db")
+#update_jobstable("java", "nl", 10, "indeed_db_nl")

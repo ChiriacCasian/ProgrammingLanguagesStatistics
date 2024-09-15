@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 from scrapfly import *
 
 def get_page_data(url):
-    scrapfly = ScrapflyClient(key="scp-live-9751df464c634d47ba47054350e0ee67")
+    url = "https://nl.indeed.com/jobs?q=java&lang=en&l=netherlands&start=0"
+    scrapfly = ScrapflyClient(key="scp-test-cbbfdfc9166d449490de9438c6d9ccf6")
     result = scrapfly.scrape(
     ScrapeConfig(
         url=url,
@@ -15,15 +16,11 @@ def get_page_data(url):
         )
     )
     data = re.findall(r'window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});', result.content)
-    try:
-        data = json.loads(data[0])
-        return {
-            "results": data["metaData"]["mosaicProviderJobCardsModel"]["results"],
-            "meta": data["metaData"]["mosaicProviderJobCardsModel"]["tierSummaries"],
-        }
-    except:
-        print("No page data")
-        return {"results": []}
+    data = json.loads(data[0])
+    return {
+        "results": data["metaData"]["mosaicProviderJobCardsModel"]["results"],
+        "meta": data["metaData"]["mosaicProviderJobCardsModel"]["tierSummaries"],
+    }
 
 def next_page(url):
     index = url.find("start=")
