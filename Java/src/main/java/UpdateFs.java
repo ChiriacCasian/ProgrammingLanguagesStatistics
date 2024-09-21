@@ -45,7 +45,7 @@ public class UpdateFs {
         return Optional.empty();
     }
 
-    public static void update_avgSalary(int lang) { ///
+    public static int update_avgSalary(int lang) { ///
         /// List.of("id", "lang", "assoc_lang", "city", "salary", "date", "lvl")
         try {
             DbConnection db = connectToDb("3406", "indeed_db", "jobstable", "root", "12345rita").get();
@@ -55,11 +55,32 @@ public class UpdateFs {
             """, lang);
             ResultSet resultSet = db.getResultSet(sqlQuery).get();
             resultSet.next(); /// Do not forget to always position the cursor before reading the data !!
-            System.out.println(resultSet.getInt(1));
             PersistenceStateVariables.setAvgSalary(lang, resultSet.getInt(1));
+            int salary = resultSet.getInt(1) ;
             db.endConnection();
+            return salary ;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -1 ;
+    }
+    public static int update_avgSalaryByCity(int lang, String city) {
+        /// List.of("id", "lang", "assoc_lang", "city", "salary", "date", "lvl")
+        try {
+            DbConnection db = connectToDb("3406", "indeed_db", "jobstable", "root", "12345rita").get();
+            String sqlQuery = String.format("""
+            SELECT avg(salary) FROM jobstable
+            WHERE lang = %d and city = '%s'
+            """, lang, city);
+            ResultSet resultSet = db.getResultSet(sqlQuery).get();
+            resultSet.next(); /// Do not forget to always position the cursor before reading the data !!
+            PersistenceStateVariables.setAvgSalary(lang, resultSet.getInt(1));
+            int salary = resultSet.getInt(1) ;
+            db.endConnection();
+            return salary ;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1 ;
     }
 }

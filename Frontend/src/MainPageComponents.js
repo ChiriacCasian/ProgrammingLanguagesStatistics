@@ -3,7 +3,7 @@ import './Style.css';
 export function mainPageTitle() {
     return (
         <div>
-            <h1>Welcome to the main page!</h1>
+            <h1>Best Programming Language to Learn for the Netherlands Job Market LIVE 🔥</h1>
         </div>
     )
 }
@@ -43,26 +43,28 @@ export function shape({type, size, color, borderRadius, borderSize, borderColor,
             return null;
     }
 }
-export function Tile({lang, chart}){
+export function Tile({placing, lang, valProp}){
     return (
         <div>
-            <h2>{lang}</h2>
+            <div className="chart">
+                chart here and lang is {lang} and the place is {placing} and val is {valProp}
+            </div>
         </div>
     )
 }
-export function tileList({ tileData }) {
+export function TileList({ tileData }) {
     const [sortedData, setSortedData] = useState([]);
 
     // Sort the tile data whenever it changes
     useEffect(() => {
-        const sorted = [...tileData].sort((a, b) => b.value - a.value);
+        const sorted = [...tileData].sort((a, b) => b.valProp - a.valProp);
         setSortedData(sorted);
     }, [tileData]);
 
     return (
         <div className="tile-list">
             {sortedData.map((tile, index) => (
-                <Tile key={index} chart={tile.chart} value={tile.lang} />
+                <Tile key={index} placing={index + 1} lang={tile.lang} valProp={tile.valProp} />
             ))}
         </div>
     );

@@ -1,21 +1,48 @@
+:root {
+    --1green: #99E2B4;
+    --2green: #78C6A3;
+    --3green: #67B99A;
+    --4green: #56AB91;
+    --5green: #469D89;
+    --6green: #248277;
+    --7green: #14746F;
+    --8green: #036666;
+    --9green: #004646;
+
+    --coral: #AB5656;
+    --violet: #582C4D;
+
+    --bone: #ECE2D0;
+}
+
+/* Main Page */
 .mainPage {
-    background-color: magenta;
-    height: 100vh; /* Ensures full viewport height */
+    background-color: var(--3green);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make sure the main page takes the full height */
 }
 
+/* Header */
 .mainPageHeader {
-    background-color: red;
-}
-.mainPageFooter {
-    background-color: yellow;
+    background-color: var(--5green);
+    height: 30vh; /* Adjust based on your needs */
 }
 
+/* Ribbon */
+.ribbon {
+    background-color: var(--4green);
+    height: 5vh;
+}
+
+/* Body */
 .mainBody {
-    background-color: lightyellow;
+    background-color: var(--2green);
+    flex: 1; /* Allow the body to grow and take the remaining space */
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Footer */
+.mainPageFooter {
+    background-color: var(--9green);
+    height: 15vh; /* Adjust based on your needs */
 }
