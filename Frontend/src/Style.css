@@ -1,3 +1,4 @@
+
 :root {
     --1green: #99E2B4;
     --2green: #78C6A3;
@@ -16,33 +17,190 @@
 }
 
 /* Main Page */
-.mainPage {
+.mainDiv {
     background-color: var(--3green);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Make sure the main page takes the full height */
+    position: relative;
+}
+.triangleContainer {
+    position: fixed;
+    width: 50%;
+    top: 0;
+    left: 0;
+    z-index: 5;
 }
 
-/* Header */
-.mainPageHeader {
-    background-color: var(--5green);
-    height: 30vh; /* Adjust based on your needs */
+@keyframes fadeInFromLeft {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-100%);
+    }
+    1% {
+        opacity: 0;
+        visibility: visible;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+    }
+}
+.mainTriangle {
+    animation: fadeInFromLeft 2s ease-in-out 80ms forwards;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    z-index: 10;
 }
 
-/* Ribbon */
-.ribbon {
-    background-color: var(--4green);
-    height: 5vh;
+.opaqueTriangle {
+    animation: fadeInFromLeft 2s ease-in-out 140ms forwards;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    z-index: 9;
+    filter: drop-shadow(0 0 1rem black);
 }
 
-/* Body */
-.mainBody {
+@keyframes fadeInDown2 {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-100%);
+    }
+    1% {
+        opacity: 0;
+        visibility: visible;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 0.6; /* Set the final opacity to 0.6 */
+        transform: translateY(0);
+        visibility: visible;
+    }
+}
+.triangleContainer:hover .dropDown-content{
+    animation: fadeInDown2 ease-in-out forwards;
+    animation-duration: 700ms;
     background-color: var(--2green);
-    flex: 1; /* Allow the body to grow and take the remaining space */
+    visibility: visible;
 }
 
-/* Footer */
+.dropDown-content{
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 4;
+    filter: drop-shadow(0 0 0.5rem black);
+}
+
+.titleHeader {
+    background-color: var(--violet);
+    color: var(--bone);
+    font-size: 6em;
+    text-align: center;
+    padding: 1.5em;
+    margin: 0;
+}
+.offsetText{
+    display: inline-block; /* Ensure the span is treated as a block for transform to work */
+    transform: translateX(7vw) ;
+}
+.animateTitle{
+    animation-name: lightSpeedInLeft ;
+    animation-duration: 2s;
+}
+@keyframes rotateText {
+    0% {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+    10%{
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(100%);
+    }
+}
+.rotatingText{
+    display: inline-block;
+    animation: rotateText 10s linear infinite;
+    width: 100%;
+    font-size: 2em;
+    margin:0 ;
+    animation-duration: 5s;
+}
+.rotatingTextDiv {
+    background-color: var(--2green);
+    color: var(--bone);
+    text-align: center;
+    padding: 0.4em;
+    margin: 0;
+    border-top: 10px solid black;
+    border-bottom: 10px solid black;
+    overflow: hidden;
+}
+.headerRibbon {
+    background-color: var(--4green);
+}
+.ribbon {
+    background-color: var(--violet);
+    height: 5%;
+}
+.mainBody {
+    background-color: var(--bone);
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    margin: 0 ;
+    height: fit-content;
+}
+.blurAreaHover{
+    filter: blur(10px);
+}
+.tile-listHover{
+    animation: moveToTheRight ease-in-out forwards;
+    animation-duration: 700ms;
+}
+.tile-list {
+    width: 60%;
+    display: flex;
+    flex-direction: column; /* Align the tiles vertically */
+    align-items: center; /* Center the tiles horizontally */
+}
+@keyframes moveToTheRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(12%);
+    }
+}
+.tile{
+    background: radial-gradient(ellipse, #03666680, #036666A0);
+    color: var(--bone);
+    padding: 1.5em;
+    margin: 0.5em;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 100%;
+}
 .mainPageFooter {
     background-color: var(--9green);
-    height: 15vh; /* Adjust based on your needs */
+    height: 15%;
+    min-height: 15vh;
+    bottom: 0 ;
+    position: relative;
 }

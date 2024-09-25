@@ -64,14 +64,13 @@ public class UpdateFs {
         }
         return -1 ;
     }
-    public static int update_avgSalaryByCity(int lang, String city) {
-        /// List.of("id", "lang", "assoc_lang", "city", "salary", "date", "lvl")
+    public static int update_avgSalaryByProvince(int lang, String province) { ///
         try {
             DbConnection db = connectToDb("3406", "indeed_db", "jobstable", "root", "12345rita").get();
             String sqlQuery = String.format("""
             SELECT avg(salary) FROM jobstable
             WHERE lang = %d and city = '%s'
-            """, lang, city);
+            """, lang, province);
             ResultSet resultSet = db.getResultSet(sqlQuery).get();
             resultSet.next(); /// Do not forget to always position the cursor before reading the data !!
             PersistenceStateVariables.setAvgSalary(lang, resultSet.getInt(1));

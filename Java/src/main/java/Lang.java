@@ -17,7 +17,7 @@ public class Lang {
     public void updateAvgSalary(List<String> cities) {
         this.avgSalary = UpdateFs.update_avgSalary(code);
         for(String city : cities){
-            this.avgSalaryByCity.put(city, UpdateFs.update_avgSalaryByCity(code, city));
+            this.avgSalaryByCity.put(city, UpdateFs.update_avgSalaryByProvince(code, city));
         }
     }
     public String toString(){

@@ -1,9 +1,15 @@
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import java.sql.*;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> cityList = List.of(
+
+    }
+    public static void updateGlobal(){
+        List<String> provinceList = List.of(
                 "other",
                 "Drenthe",
                 "Flevoland",
@@ -40,7 +46,7 @@ public class Main {
                 new Lang(18, "cobol")
         ) ;
         for(Lang lang : programmingLanguages){
-            lang.updateAvgSalary(cityList) ;
+            lang.updateAvgSalary(provinceList) ;
             System.out.println(lang);
         }
 
