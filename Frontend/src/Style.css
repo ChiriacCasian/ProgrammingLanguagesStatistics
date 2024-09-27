@@ -88,6 +88,10 @@
     background-color: var(--2green);
     visibility: visible;
 }
+.mainTriangle:hover .dropDown-element:nth-child(1){
+    background-color: blue;
+    box-shadow: inset 0 0 1.6rem black;
+}
 
 .dropDown-content{
     visibility: hidden;
@@ -178,6 +182,7 @@
     display: flex;
     flex-direction: column; /* Align the tiles vertically */
     align-items: center; /* Center the tiles horizontally */
+    padding: 20px;
 }
 @keyframes moveToTheRight {
     0% {
@@ -234,7 +239,33 @@
     transform: scale(2.5); /* Adjust scale based on height */
     line-height: 1; /* Prevent extra spacing */
 }
+.dropDown-element{
+    height: 33.33%;
+    width: 100%;
+    background-color: var(--2green);
+    box-shadow: inset 0 0 0.9rem black;
+}
+.dropDown-element:hover{
+    box-shadow: inset 0 0 1.6rem black;
+}
+@keyframes customElemAnim {
+    0%{
+     background-color: red;
+    }
+    100%{
+        background-color: blue;
+    }
+}
+.dropDown-element.clicked{
+    /*animation: customElemAnim forwards;*/
+    background-color: red;
+}
+/*.dropDown-element:nth-child(1){*/
+/*    background-color: blue;*/
+/*}*/
+.ddElement-option{
 
+}
 .mainPageFooter {
     background-color: var(--9green);
     height: 15%;

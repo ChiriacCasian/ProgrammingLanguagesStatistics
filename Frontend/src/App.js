@@ -91,6 +91,12 @@ function TopLeftTriangle(size, mainColor, opaqueColor) {
         globHover = false ;
         setIsHovering(false);
     }
+    const mainTriangleClickHandler = () =>{
+        const firstDropDownElement = document.querySelector('.dropDown-element');
+        if (firstDropDownElement) {
+            firstDropDownElement.click();
+        }
+    }
 
     return (
         <div className="triangleContainer">
@@ -100,6 +106,7 @@ function TopLeftTriangle(size, mainColor, opaqueColor) {
                     opaqueColor={mainColor}  // Example color
                     onMouseEnter={onMouseEnterHandler}
                     onMouseLeave={onMouseLeaveHandler}
+                    onMouseClick={mainTriangleClickHandler}
                 />
             </div>
             <div className="opaqueTriangle" onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
@@ -110,13 +117,26 @@ function TopLeftTriangle(size, mainColor, opaqueColor) {
                     onMouseLeave={onMouseLeaveHandler}
                 />
                 <div className="dropDown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
+                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}> element </div>
+                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}> element </div>
+                        <div className="ddElement-option">option1</div>
+                        <div className="ddElement-option">option2</div>
+                        <div className="ddElement-option">option3</div>
+                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}> element </div>
                 </div>
             </div>
         </div>
     );
+}
+function handleDropDownClick(event) {
+    if (!event.target.classList.contains('clicked')) {
+        event.target.classList.toggle('clicked');
+    }
+}
+function onMouseLeaveHandler2(event) {
+    if (event.target.classList.contains('clicked')) {
+        event.target.classList.toggle('clicked');
+    }
 }
 export function TileList({ tileData }) {
     const [sortedData, setSortedData] = useState([]);
