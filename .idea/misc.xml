@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
     <option name="sdkName" value="Python 3.12" />
@@ -7,7 +8,17 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Java/pom.xml" />
+        <option value="$PROJECT_DIR$/JavaBackend2/pom.xml" />
+        <option value="$PROJECT_DIR$/JavaBackend/pom.xml" />
+        <option value="$USER_HOME$/Downloads/JavaBackend/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/Java/pom.xml" />
+        <option value="$PROJECT_DIR$/JavaBackend/pom.xml" />
+        <option value="$PROJECT_DIR$/JavaBackend2/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="Python 3.12" project-jdk-type="Python SDK">
