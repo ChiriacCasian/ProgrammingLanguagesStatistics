@@ -53,6 +53,7 @@
     left: 0;
     visibility: hidden;
     z-index: 10;
+    pointer-events: none; /*very important in order to not block the :hover of the dropDown-element nth(1)*/
 }
 
 .opaqueTriangle {
@@ -70,27 +71,26 @@
         opacity: 0;
         visibility: hidden;
         transform: translateY(-100%);
+        pointer-events: none;
     }
     1% {
         opacity: 0;
-        visibility: visible;
+        /*visibility: visible;*/
         transform: translateY(-100%);
     }
     100% {
         opacity: 0.6; /* Set the final opacity to 0.6 */
         transform: translateY(0);
-        visibility: visible;
+        /*visibility: visible;*/
+        pointer-events: auto;
     }
 }
 .triangleContainer:hover .dropDown-content{
     animation: fadeInDown2 ease-in-out forwards;
     animation-duration: 700ms;
-    background-color: var(--2green);
+    /*background-color: var(--2green);*/
     visibility: visible;
-}
-.mainTriangle:hover .dropDown-element:nth-child(1){
-    background-color: blue;
-    box-shadow: inset 0 0 1.6rem black;
+    background-color: transparent;
 }
 
 .dropDown-content{
@@ -204,7 +204,6 @@
     font-weight: bold;
     justify-content: right;
     align-items: center;
-    white-space: pre-wrap;
 
     box-sizing: border-box;
     border-radius: 20px;
@@ -244,27 +243,64 @@
     width: 100%;
     background-color: var(--2green);
     box-shadow: inset 0 0 0.9rem black;
+
+    display: flex; /* Make it a flex container */
+    flex-direction: column;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 .dropDown-element:hover{
+    animation: ZoomOut forwards;
+    animation-duration: 200ms;
     box-shadow: inset 0 0 1.6rem black;
+    filter: drop-shadow(0 0 0.25rem) brightness(0.75);
+    border-radius: 10px;
 }
-@keyframes customElemAnim {
+@keyframes ZoomOut {
     0%{
-     background-color: red;
+     transform: scale(1);
     }
     100%{
-        background-color: blue;
+        transform: scale(1.07) translateX(4%);
     }
 }
-.dropDown-element.clicked{
-    /*animation: customElemAnim forwards;*/
-    background-color: red;
+@keyframes fadeInFromTop2 {
+    0% {
+        visibility: visible;
+        opacity: 0; /* Start with opacity 0 */
+    }
+    100% {
+        visibility: visible;
+        opacity: 1; /* End with opacity 1 */
+    }
 }
-/*.dropDown-element:nth-child(1){*/
-/*    background-color: blue;*/
-/*}*/
-.ddElement-option{
+.dropDown-element.clicked .ddElement-option {
+    animation: fadeInFromTop2 200ms ease-in-out forwards;
+}
+.ddInitialText{
+    font-size: 2em;
+    font-weight: bold;
 
+    bottom: 50%;
+    position: absolute;
+}
+.dropDown-element.clicked .ddInitialText {
+    display: none;
+}
+.dropDown-element:not(:hover) .ddInitialText {
+    display: flex;
+}
+.ddElement-option{
+    width: 100%;
+    height: 33.33%;
+    border: 5px solid black;
+
+    visibility: hidden;
+    display: flex; /* Make it a flex container !!! */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+
+    pointer-events: none;
 }
 .mainPageFooter {
     background-color: var(--9green);

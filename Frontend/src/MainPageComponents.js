@@ -29,7 +29,7 @@ export const Shape = ({ type, size, color, borderRadius, borderSize, borderColor
                         borderRight: `${size}px solid transparent`,
                         borderTop: `${size}px solid ${color}`,
                         opacity: opacity,
-                        pointerEvents: 'auto'
+                        // pointerEvents: 'none'
                     }}
                 ></div>
             );

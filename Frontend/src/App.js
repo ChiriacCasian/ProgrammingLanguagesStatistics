@@ -95,6 +95,7 @@ function TopLeftTriangle(size, mainColor, opaqueColor) {
         const firstDropDownElement = document.querySelector('.dropDown-element');
         if (firstDropDownElement) {
             firstDropDownElement.click();
+            console.log("clicked") ;
         }
     }
 
@@ -117,12 +118,18 @@ function TopLeftTriangle(size, mainColor, opaqueColor) {
                     onMouseLeave={onMouseLeaveHandler}
                 />
                 <div className="dropDown-content">
-                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}> element </div>
-                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}> element </div>
-                        <div className="ddElement-option">option1</div>
-                        <div className="ddElement-option">option2</div>
-                        <div className="ddElement-option">option3</div>
-                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}> element </div>
+                    <a href={"http://localhost:3000/mission"} style={{fontSize: 30}}>
+                        <div className="dropDown-element">
+                            <span>MISSION</span>
+                        </div>
+                    </a>
+                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}>
+                        <span className="ddInitialText">SEE MAP</span>
+                        <div className="ddElement-option" style={{animationDelay: '0ms'}}>option1</div>
+                        <div className="ddElement-option" style={{animationDelay: '200ms'}}>option2</div>
+                        <div className="ddElement-option" style={{animationDelay: '400ms'}}>option3</div>
+                        </div>
+                    <div className="dropDown-element" > element </div>
                 </div>
             </div>
         </div>
@@ -161,7 +168,6 @@ export function Tile({placing, avgSalary, lang, listings, newListings}){
     const styles = {
         animationDelay: `${placing * 100}ms`,
     }
-    console.log(styles.animationDelay) ;
     if((lang <= 0 || lang > 18) && 1) { /// change 0 to 1 if you want to NOT display Others as a language
         return (<div></div>);
     }
