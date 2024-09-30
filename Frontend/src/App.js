@@ -4,8 +4,10 @@ import {Shape} from "./MainPageComponents";
 import React, {useEffect, useRef, useState} from "react";
 import 'animate.css';
 import axios from "axios"
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import MixedMap from './mixedJobsMap';
 
-let globHover = false;
+export let globHover = false;
 let avgSalaryMax = -1 ;
 let listingsMax = -1 ;
 function App() {
@@ -20,13 +22,17 @@ function App() {
                 console.error("There was an error fetching the tiles!", error);
             });
     }, []); /// there are no external dependencies that can trigger useEffect to rerun
-    avgSalaryMax = Math.max(...tilez.map(x => x.avgSalary));
-    listingsMax = Math.max(...tilez.map(x => x.listings));
+
     const mainTriangleColor = getComputedStyle(document.documentElement).getPropertyValue('--4green').trim();
     const opaqueTriangleColor = getComputedStyle(document.documentElement).getPropertyValue('--4green').trim();
     const viewportWidth = window.innerWidth;
 
+
+    avgSalaryMax = Math.max(...tilez.map(x => x.avgSalary));
+    listingsMax = Math.max(...tilez.map(x => x.listings));
+
     return (
+    <Router>
       <div className="mainDiv">
           {TopLeftTriangle( 18/100 * viewportWidth, mainTriangleColor, opaqueTriangleColor)}
             <div className={`blurArea ${globHover ? "blurAreaHover" : ""}`}>
@@ -40,10 +46,16 @@ function App() {
                           Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
                   </div>
               </h1>
-
           </header>
+
           <div className={`mainBody ${globHover ? "mainBodyHover" : ""}`}>
-              <TileList tileData={tilez} />
+
+              <Routes>
+                  <Route path="/mixedJobsMap" element={<MixedMap />} />
+                  {/* Default route shows the tile list */}
+                  <Route path="/" element={<TileList tileData={tilez} />} />
+              </Routes>
+
           </div>
           <div className="ribbon"></div>
           <footer className="mainPageFooter">
@@ -52,6 +64,7 @@ function App() {
           </footer>
             </div>
       </div>
+        </Router>
   );
 }
 function TopLeftTriangle(size, mainColor, opaqueColor) {
@@ -118,18 +131,24 @@ function TopLeftTriangle(size, mainColor, opaqueColor) {
                     onMouseLeave={onMouseLeaveHandler}
                 />
                 <div className="dropDown-content">
-                    <a href={"http://localhost:3000/mission"} style={{fontSize: 30}}>
+                    <a href={"http://localhost:3000/ABOUT"} style={{textDecoration: 'none', color: 'inherit'}}>
                         <div className="dropDown-element">
-                            <span>MISSION</span>
+                            <span className="ddInitialText">ABOUT</span>
                         </div>
                     </a>
                     <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}>
-                        <span className="ddInitialText">SEE MAP</span>
-                        <div className="ddElement-option" style={{animationDelay: '0ms'}}>option1</div>
-                        <div className="ddElement-option" style={{animationDelay: '200ms'}}>option2</div>
-                        <div className="ddElement-option" style={{animationDelay: '400ms'}}>option3</div>
+                        <span className="ddInitialText">MAP</span>
+                        <a href = "http://localhost:3000/enJobsMap" className="ddElement-option" style={{animationDelay: '0ms', height: '33.33%'}}>english required jobs</a>
+                        <a href = "http://localhost:3000/nlJobsMap" className="ddElement-option" style={{animationDelay: '200ms', height: '33.33%'}}>netherlands required jobs</a>
+                        <a href = "http://localhost:3000/mixedJobsMap" className="ddElement-option" style={{animationDelay: '400ms', height: '33.33%'}}>all jobs</a>
                         </div>
-                    <div className="dropDown-element" > element </div>
+                    <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}>
+                        <span className="ddInitialText">☰</span>
+                        <div className="ddElement-option" style={{animationDelay: '0ms', height: '25%'}}>option1</div>
+                        <div className="ddElement-option" style={{animationDelay: '200ms', height: '25%'}}>option2</div>
+                        <div className="ddElement-option" style={{animationDelay: '400ms', height: '25%'}}>option3</div>
+                        <div className="ddElement-option" style={{animationDelay: '600ms', height: '25%'}}>option3</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,20 +159,41 @@ function handleDropDownClick(event) {
         event.target.classList.toggle('clicked');
     }
 }
-function onMouseLeaveHandler2(event) {
+function onMouseLeaveHandler2(event) { /// if it s clicked unclick it
     if (event.target.classList.contains('clicked')) {
         event.target.classList.toggle('clicked');
     }
 }
 export function TileList({ tileData }) {
     const [sortedData, setSortedData] = useState([]);
+    const [sortCriteria, setSortCriteria] = useState(3); /// default sort by rankingCoef
 
     // Sort the tile data whenever it changes
     useEffect(() => {
-        const sorted = [...tileData].sort((a, b) => b.rankingCoef - a.rankingCoef);
-        setSortedData(sorted);
-    }, [tileData]);
+        if(sortCriteria == 1) {
+            const sorted = [...tileData].sort((a, b) => b.avgSalary - a.avgSalary);
+            setSortedData(sorted);
+        }else if(sortCriteria == 2){
+            const sorted = [...tileData].sort((a, b) => b.listings - a.listings);
+            setSortedData(sorted);
+        }else if(sortCriteria == 3){
+            const sorted = [...tileData].sort((a, b) => b.rankingCoef - a.rankingCoef);
+            setSortedData(sorted);
+        }
+    }, [tileData, sortCriteria]);
 
+    function sortBySalary(){
+         setSortCriteria(1) ;
+        console.log(sortCriteria) ;
+    }
+    function sortByListings(){
+        setSortCriteria(2) ;
+        console.log(sortCriteria) ;
+    }
+    function sortByAllMetrics(){
+        setSortCriteria(3) ;
+        console.log(sortCriteria) ;
+    }
     return (
         <div className={`tile-list ${globHover ? "tile-listHover" : ""}`}>
             {sortedData.map((tile, index) => (
@@ -161,6 +201,11 @@ export function TileList({ tileData }) {
                       listings={tile.listings} rankingCoef={tile.rankingCoef}
                       newListings={tile.newListings} avgSalary={tile.avgSalary}/>
             ))}
+            <div className="sortButtonsDiv">
+                <button className="sortButton" onClick={sortBySalary}>salary</button>
+                <button className="sortButton" onClick={sortByListings}>listings</button>
+                <button className="sortButton" onClick={sortByAllMetrics}>overall</button>
+            </div>
         </div>
     );
 }
@@ -178,8 +223,12 @@ export function Tile({placing, avgSalary, lang, listings, newListings}){
                     {placing}
                 </div>
                 <span className="tileLang">{langDecoder(lang)}</span>
-                <span style={{ visibility: avgSalary === avgSalaryMax ? "visible" : "hidden", fontSize: 35, padding: 20 }}>💸</span>
-                <span style={{ visibility: listings === listingsMax ? "visible" : "hidden", fontSize: 35, padding: 20}}>📈</span>
+                {avgSalaryMax !== -1 && (
+                <span style={{ visibility: avgSalary === avgSalaryMax ? "visible" : "hidden", fontSize: 40, padding: 0 }}>&nbsp; &nbsp;💸</span>
+                )}
+                {listingsMax !== -1 && (
+                    <span style={{ visibility: listings === listingsMax ? "visible" : "hidden", fontSize: 35, padding: 0 }}>📈&nbsp; &nbsp;</span>
+                )}
                 <span className="slash">/</span>
                 <span className="tileRight">{avgSalary} €</span>
                 <span className="slash">/</span>

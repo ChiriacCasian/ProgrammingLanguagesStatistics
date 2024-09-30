@@ -1,0 +1,22 @@
+.leaflet-map{
+    width: 60vw;
+    height: 60vh;
+    z-index: 1;
+    padding: 75px;
+}
+
+.leaflet-mapHover{
+    animation: moveToTheRight;
+    animation-duration: 700ms;
+}
+
+@keyframes moveToTheRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(15%);
+        width: 60vw;
+        height: 60vh;
+    }
+}
