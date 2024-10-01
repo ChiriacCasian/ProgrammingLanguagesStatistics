@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IndeedScrapePy.iml" filepath="$PROJECT_DIR$/IndeedScrapePy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PythonBackend/pythonModule.iml" filepath="$PROJECT_DIR$/PythonBackend/pythonModule.iml" />
     </modules>
   </component>
 </project>
