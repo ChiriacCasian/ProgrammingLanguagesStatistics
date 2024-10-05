@@ -27,7 +27,6 @@ function App() {
     const opaqueTriangleColor = getComputedStyle(document.documentElement).getPropertyValue('--4green').trim();
     const viewportWidth = window.innerWidth;
 
-
     avgSalaryMax = Math.max(...tilez.map(x => x.avgSalary));
     listingsMax = Math.max(...tilez.map(x => x.listings));
 
@@ -36,18 +35,23 @@ function App() {
       <div className="mainDiv">
           {TopLeftTriangle( 18/100 * viewportWidth, mainTriangleColor, opaqueTriangleColor)}
             <div className={`blurArea ${globHover ? "blurAreaHover" : ""}`}>
-          <header>
-              <h1 className="titleHeader"><span className="offsetText"><div className="animateTitle">🔥</div></span></h1>
-              <h1 className="rotatingTextDiv">
-                  <div className="rotatingText">
-                  Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
-                  </div>
-                  <div className="rotatingText">
-                          Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
-                  </div>
-              </h1>
-          </header>
 
+            <Routes>
+                <Route path="/" element={
+                    <header>
+                          <h1 className="titleHeader"><span className="offsetText"><div className="animateTitle">🔥</div></span></h1>
+                          <h1 className="rotatingTextDiv">
+                              <div className="rotatingText">
+                              Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
+                              </div>
+                              <div className="rotatingText">
+                                      Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
+                              </div>
+                          </h1>
+                    </header>
+                }/>
+                <Route path="/mixedJobsMap" element={<></>} />
+            </Routes>
           <div className={`mainBody ${globHover ? "mainBodyHover" : ""}`}>
 
               <Routes>
@@ -170,29 +174,35 @@ export function TileList({ tileData }) {
 
     // Sort the tile data whenever it changes
     useEffect(() => {
-        if(sortCriteria == 1) {
+        if(sortCriteria === 1) {
             const sorted = [...tileData].sort((a, b) => b.avgSalary - a.avgSalary);
             setSortedData(sorted);
-        }else if(sortCriteria == 2){
+        }else if(sortCriteria === 2){
             const sorted = [...tileData].sort((a, b) => b.listings - a.listings);
             setSortedData(sorted);
-        }else if(sortCriteria == 3){
+        }else if(sortCriteria === 3){
             const sorted = [...tileData].sort((a, b) => b.rankingCoef - a.rankingCoef);
             setSortedData(sorted);
         }
     }, [tileData, sortCriteria]);
 
-    function sortBySalary(){
+    function sortBySalary(event){
          setSortCriteria(1) ;
-        console.log(sortCriteria) ;
+        const buttons = document.querySelectorAll('.sortButton');
+        buttons.forEach(button => button.classList.remove('clicked'));
+        event.target.classList.add('clicked');
     }
-    function sortByListings(){
+    function sortByListings(event){
         setSortCriteria(2) ;
-        console.log(sortCriteria) ;
+        const buttons = document.querySelectorAll('.sortButton');
+        buttons.forEach(button => button.classList.remove('clicked'));
+        event.target.classList.add('clicked');
     }
-    function sortByAllMetrics(){
+    function sortByAllMetrics(event){
         setSortCriteria(3) ;
-        console.log(sortCriteria) ;
+        const buttons = document.querySelectorAll('.sortButton');
+        buttons.forEach(button => button.classList.remove('clicked'));
+        event.target.classList.add('clicked');
     }
     return (
         <div className={`tile-list ${globHover ? "tile-listHover" : ""}`}>

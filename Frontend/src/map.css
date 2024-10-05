@@ -1,25 +1,198 @@
+
+:root {
+    --1green: #99E2B4;
+    --2green: #78C6A3;
+    --3green: #67B99A;
+    --4green: #56AB91;
+    --5green: #469D89;
+    --6green: #248277;
+    --7green: #14746F;
+    --8green: #036666;
+    --9green: #004646;
+
+    --coral: #AB5656;
+    --violet: #582C4D;
+
+    --bone: #ECE2D0;
+}
 .map {
     height: 100%;
-    transform: translateX(30%) scale(3.2);
+    transform: translateX(30%) scale(4.2) translateY(-1%);
     transform-origin: top ;
+    padding: 50px;
+    position: relative;
 }
 .hovered{
-    animation: fadeIn 1s ;
-    background-color: red;
-    fill: red ;
+    filter: brightness(70%);
+    cursor: pointer;
 }
-#Gelderland {
-    fill: blue;
+.clicked{
+    text-shadow: 0 0 10px ;
+}
+.clicked2{
+    filter: brightness(50%);
+}
+
+.provinceInfo {
+    visibility: hidden;
+    height: 8%;
+    width: 650px ;
+    background-color: red;
+
+    position: relative;
+    left: -25% ;
+    top: -10% ;
+
+    border-radius: 20px;
+    border: 0.5em solid black;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--bone);
+}
+.provinceInfoSpan{
+    padding: 20px;
+    display: flex;
+    align-content: flex-start;
+    user-select: none;
 }
 .province {
-    fill: red;
     fill-opacity:1;
     fill-rule:evenodd;
-    stroke:#000000;
-    stroke-width:0.81400001;
-    stroke-linecap:butt;
-    stroke-linejoin:bevel;
+    stroke: black;
+    stroke-width:1.25px;
+    stroke-linecap:round;
+    stroke-linejoin:round;
     stroke-miterlimit:10;
     stroke-dasharray:none;
     stroke-opacity:1
+}
+.tile-listHover .salariesListingsDiv {
+    visibility: hidden;
+}
+.tile-listHover .langButton {
+    visibility: hidden !important;
+}
+
+.salariesListingsDiv{
+    transform: translateY(0);         /* Initial state */
+    transition: transform 1s ease-in-out;
+    background-color: black;
+    border-radius: 20px;
+
+    position: absolute;
+    top: 43% ;
+    right: 12%;
+    height: 8%;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    z-index: 90;
+
+    user-select: none;
+}
+.salariesListingsButton{
+    position: relative;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--bone);
+    text-align: center;
+    border: 0;
+    width: 50%;
+    height: 100%;
+    background-color: black;
+    cursor: pointer;
+
+    z-index: 100;
+}
+
+.salariesListingsDiv:hover {
+    transform: translateY(-250%);
+}
+.salariesListingsDiv:hover .langButton{
+    animation: fadeInDown3 0.2s forwards ;
+}
+.salariesListingsDiv:hover .langButtonMain{
+    /*visibility: hidden;*/
+    filter: drop-shadow(0 0 1rem);
+}
+
+.salariesListingsDiv:hover .langsButtonDiv{
+    visibility: visible;
+}
+.langsButtonDiv{
+    position: absolute;
+    top: 100%;
+    visibility: hidden;
+    width: 100%;
+    height: fit-content;
+    user-select: none;
+}
+.langButton{
+    visibility: hidden;
+    background-color: red;
+    margin-top: -35px;
+    height: 60px;
+    width: 100%;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--bone) ;
+    text-align: center;
+    align-content: end;
+    position: relative;
+}
+.langButton:hover {
+    filter: brightness(0.5);
+}
+
+@keyframes moveUP {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-250%);
+    }
+}
+@keyframes fadeInDown3 {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-100%);
+    }
+    1% {
+        opacity: 0;
+        visibility: visible;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1; /* Set the final opacity to 0.6 */
+        transform: translateY(0);
+        visibility: visible;
+    }
+}
+@keyframes fadeInFromLeft {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-50%);
+    }
+    1% {
+        opacity: 0;
+        visibility: visible;
+        transform: translateX(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+    }
 }

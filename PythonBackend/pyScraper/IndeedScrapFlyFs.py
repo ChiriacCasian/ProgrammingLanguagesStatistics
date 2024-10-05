@@ -13,42 +13,34 @@ import mysql.connector
 from scrapfly import *
 
 def get_page_data(url):
-    scrapfly = ScrapflyClient(key="scp-live-d9f16672d5944a2eb8f22f33428c7c6f")
-    result = scrapfly.scrape(
-        ScrapeConfig(
-            url=url,
-            asp=True,
+    try:
+        scrapfly = ScrapflyClient(key="scp-live-9751df464c634d47ba47054350e0ee67")
+        result = scrapfly.scrape(
+            ScrapeConfig(
+                url=url,
+                asp=True,
+            )
         )
-    )
-    data = re.findall(r'window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});', result.content)
-    data = json.loads(data[0])
-    return {
-        "results": data["metaData"]["mosaicProviderJobCardsModel"]["results"],
-        "meta": data["metaData"]["mosaicProviderJobCardsModel"]["tierSummaries"],
-    }
-def update_jobstable(progLang, jobLang, maxpages, schema_name):
-    url="https://nl.indeed.com/jobs?q="+ progLang + "&lang=" + jobLang + "&l=netherlands&start=0"
+        data = re.findall(r'window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});', result.content)
+        data = json.loads(data[0])
+        return {
+            "results": data["metaData"]["mosaicProviderJobCardsModel"]["results"],
+            "meta": data["metaData"]["mosaicProviderJobCardsModel"]["tierSummaries"],
+        }
+    except:
+        return {"results": []}
+def update_jobstable_province(progLang, maxpages, schema_name, province):
+    url="https://nl.indeed.com/jobs?q="+ progLang + "&l=" + province + "&l=netherlands&start=0"
     cursor, indeed_db = connect_to_mysql("localhost", 3406, "root", "12345rita", schema_name)
     pages = 0
     while(jobs := get_page_data(url)["results"]):
         for job in jobs:
-            #print(job.keys())
-            #print(job["jobCardRequirementsModel"])
             try:
-                id = (job["adId"])
                 timestamp_ms = job["createDate"]
                 dt = datetime.fromtimestamp(timestamp_ms/1000.0, tz=timezone.utc)
                 mysqlDate = dt.strftime('%Y-%m-%d %H:%M:%S')
-                city = job["jobLocationCity"]
             except:
-                id = None
                 mysqlDate = None
-                city = None
-
-            try:
-                title = job["title"]
-            except:
-                title = None
             salaryNum = None
             try:
                 salaryString = job["salarySnippet"]["text"]
@@ -66,14 +58,20 @@ def update_jobstable(progLang, jobLang, maxpages, schema_name):
                         salaryNum = int((numbers[0] + numbers[1]) / 24) # if the salary is > 20k then its yearly
                     elif(len(numbers) == 1 and numbers[0] <= 300): # salary is per day
                         salaryNum = numbers[0] * 30
-                    else: # if there is only one number then its the salary
+                    elif numbers[0] > 1500 and numbers[0] < 6000: # if there is only one number then its the salary
                         salaryNum = numbers[0]
+                # handles statistical outlier salaryNum
+                if(salaryNum is not None and (salaryNum < 1500 or salaryNum > 20000)): salaryNum = None
             except:
                 salaryNum = None
-            if(id is not None):
-                # id, lang, assoc_lang, city, salary, date, lvl
-                data = (progLang_to_code(progLang), None, city, salaryNum, mysqlDate, 3)
+
+            if (salaryNum is not None) :
+                # lang, city, salary, date
+                data = (progLang_to_code(progLang),
+                        province_to_code(province), salaryNum, mysqlDate)
+                print(data)
                 insert_into_jobstable(cursor, indeed_db, data)
+
         url = next_page(url)
         print(pages)
         pages += 1
@@ -117,14 +115,17 @@ def connect_to_mysql(host, port, user, password, database):
 
 # lang is a number representing the language 1 is java, lvl is an int representing senior/junior/medior
 def insert_into_jobstable(cursor, db, data):
-    query = "INSERT INTO jobstable (lang, assoc_lang, city, salary, date, lvl) VALUES (%s, %s, %s, %s, %s, %s)"
-    data.city = city_to_province(data.city)
+    query = "INSERT INTO jobstable (lang, city, salary, date) VALUES (%s, %s, %s, %s)"
     cursor.execute(query, data)
     db.commit()
 def clear_jobstable(schema_name, table_name):
     cursor, db = connect_to_mysql("localhost", 3406, "root", "12345rita", schema_name)
     query = "DELETE FROM " + table_name
     cursor.execute(query)
+
+    reset_query = f"ALTER TABLE {table_name} AUTO_INCREMENT = 1"
+    cursor.execute(reset_query)
+
     db.commit()
     cursor.close()
     db.close()
@@ -151,6 +152,23 @@ def progLang_to_code(progLang):
         "cobol": 18
     }
     return switcher.get(progLang.lower(), 0) # 0 is the mistery language
+
+def province_to_code(province):
+    switcher = {
+        "Drenthe": 1,
+        "Flevoland": 2,
+        "Friesland": 3,
+        "Gelderland": 4,
+        "Groningen": 5,
+        "Limburg": 6,
+        "North Brabant": 7,
+        "North Holland": 8,
+        "Overijssel": 9,
+        "South Holland": 10,
+        "Utrecht": 11,
+        "Zeeland": 12
+    }
+    return switcher.get(province, 0)
 
 def city_to_province(city):
     switcher = {
@@ -215,3 +233,10 @@ def city_to_province(city):
         "Zeist": "Utrecht"
     }
     return switcher.get(city, "other") # "other" is the unidentified city
+
+def jobLang_to_code(jobLang) :
+    switcher = {
+        "en" : 0 ,
+        "nl" : 1
+    }
+    return switcher.get(jobLang, 0) ; # default is english

@@ -85,6 +85,9 @@
     filter: brightness(0.5);
     cursor: pointer;
 }
+.sortButton.clicked{
+    filter: brightness(0.5);
+}
 .tile-listHover .sortButtonsDiv {
     animation: moveToRight 1s;
 }
@@ -138,11 +141,9 @@
 .triangleContainer:hover .dropDown-content{
     animation: fadeInDown2 ease-in-out forwards;
     animation-duration: 700ms;
-    /*background-color: var(--2green);*/
     visibility: visible;
     background-color: transparent;
 }
-
 .dropDown-content{
     visibility: hidden;
     position: absolute;
@@ -282,6 +283,7 @@
     font-size: 2.5em; /* Start with a small font size */
     transform: scale(2.5) translateY(-10%); /* Adjust scale based on height */
     line-height: 1; /* Prevent extra spacing */
+    user-select: none;
 }
 .dropDown-element{
     height: 33.33%;
