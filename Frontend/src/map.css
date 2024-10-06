@@ -26,8 +26,9 @@
     filter: brightness(70%);
     cursor: pointer;
 }
-.clicked{
-    text-shadow: 0 0 10px ;
+.salariesListingsDiv .clicked{
+    filter: brightness(200%);
+    color: darkred;
 }
 .clicked2{
     filter: brightness(50%);
@@ -64,13 +65,17 @@
     fill-opacity:1;
     fill-rule:evenodd;
     stroke: black;
-    stroke-width:1.25px;
+    stroke-width:0.8px;
     stroke-linecap:round;
     stroke-linejoin:round;
     stroke-miterlimit:10;
     stroke-dasharray:none;
     stroke-opacity:1
 }
+#deMap .province {
+    stroke-width: 2px; /* Set your desired stroke-width */
+}
+
 .tile-listHover .salariesListingsDiv {
     visibility: hidden;
 }
@@ -195,4 +200,13 @@
         transform: translateX(0);
         visibility: visible;
     }
+}
+
+#deMap {
+    height: 100%;
+    width: 100%;
+    transform: translateX(35%) scale(1.2) translateY(12%);
+    transform-origin: center;
+    padding: 50px;
+    position: relative;
 }

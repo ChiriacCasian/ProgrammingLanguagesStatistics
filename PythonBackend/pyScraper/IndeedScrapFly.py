@@ -29,7 +29,7 @@ langlist = [ "java",
              "dart",
              "matlab",
              "cobol"]
-provinces = [
+provinces0 = [
     "Drenthe",
     "Flevoland",
     "Friesland",
@@ -43,9 +43,75 @@ provinces = [
     "Utrecht",
     "Zeeland"
 ]
+provinces1 = [
+    "Baden-Wurttemberg",
+    "Bavaria",
+    "Berlin",
+    "Brandenburg",
+    "Bremen",
+    "Hamburg",
+    "Hesse",
+    "Lower-Saxony",
+    "Mecklenburg-Vorpommern",
+    "North-Rhine-Westphalia",
+    "Rhineland-Palatinate",
+    "Saarland",
+    "Saxony",
+    "Saxony-Anhalt",
+    "Schleswig-Holstein",
+    "Thuringia"
+]
+provinces2 = [
+    "Andorra",
+    "Austria",
+    "Belarus",
+    "Belgium",
+    "Bosnia-and-Herzegovina",
+    "Bulgaria",
+    "Croatia",
+    "Czech-Republic",
+    "Denmark",
+    "Estonia",
+    "Finland",
+    "France",
+    "Germany",
+    "Greece",
+    "Hungary",
+    "Iceland",
+    "Ireland",
+    "Italy",
+    "Latvia",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Malta",
+    "Moldova",
+    "Monaco",
+    "Montenegro",
+    "Netherlands",
+    "North-Macedonia",
+    "Norway",
+    "Poland",
+    "Portugal",
+    "Romania",
+    "Russia",
+    "San Marino",
+    "Serbia",
+    "Slovakia",
+    "Slovenia",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+    "Ukraine",
+    "United-Kingdom",
+    "Vatican-City",
+    "America"
+]
 
-clear_jobstable("indeed_db", "jobstable")
+# clear_jobstable("indeed_db", "jobstable")
 for progLang in langlist :
     print(progLang)
-    for province in provinces:
-        update_jobstable_province(progLang, 4, "indeed_db", province)
+    # for province in provinces0:
+    #     update_jobstable_province(progLang, 4, "indeed_db", province, "nl")
+    for province in provinces1:
+        update_jobstable_province(progLang, 4, "indeed_db", province, "de")

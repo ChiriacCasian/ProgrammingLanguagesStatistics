@@ -50,7 +50,7 @@
 }
 .sortButtonsDiv{
     animation: fadeInFromLeft 2s forwards ;
-    animation-delay: 2s;
+    animation-delay: 1.2s;
     visibility: hidden;
 
     position: absolute;
@@ -97,6 +97,15 @@
     top: 0;
     left: 0;
     z-index: 100;
+}
+.auxTriangle {
+    animation: fadeInFromLeft 2s ease-in-out 80ms forwards;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    z-index: 100;
+    pointer-events: none; /*very important in order to not block the :hover of the dropDown-element nth(1)*/
 }
 
 .mainTriangle {
@@ -167,8 +176,8 @@
     transform: translateX(7vw) ;
 }
 .animateTitle{
-    animation-name: lightSpeedInLeft ;
-    animation-duration: 2s;
+    animation-name: fadeIn ;
+    animation-duration: 4s;
 }
 @keyframes rotateText {
     0% {
@@ -225,6 +234,8 @@
     flex-direction: column; /* Align the tiles vertically */
     align-items: center; /* Center the tiles horizontally */
     padding: 20px;
+
+    user-select: none;
 }
 @keyframes moveToTheRight {
     0% {
@@ -375,4 +386,11 @@
     min-height: 15vh;
     bottom: 0 ;
     position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    color: var(--bone);
+    flex-direction: column;
 }

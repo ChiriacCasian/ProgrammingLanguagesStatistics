@@ -7,10 +7,9 @@ import {MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet'
 import L, {geoJson, GeoJSON} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, {useEffect, useRef, useState} from "react";
-import { ReactComponent as NetherlandsMap } from './Provinces_of_the_Netherlands.svg';
 import {globHover} from "./App";
 
-export default function MixedMap() {
+export default function MixedMap({SvgMap, provincesEndpoint, tilesEndpoint}) {
 
     const [province, setProvinces] = useState([]);
     const [langs, setLangs] = useState([]);
@@ -19,7 +18,7 @@ export default function MixedMap() {
     const [hoveredProvince, setClickedProvince] = useState(""); /// 0 means no particular lang
 
     useEffect(() => {
-        axios.get('http://localhost:3030/getProvinces')
+        axios.get(provincesEndpoint)
             .then(response => {
                 setProvinces([...response.data]);
             })
@@ -28,7 +27,7 @@ export default function MixedMap() {
             });
     }, []);
     useEffect(() => {
-        axios.get('http://localhost:3030/getTiles') /// using Tiles because they are smaller and easier to work with
+        axios.get(tilesEndpoint) /// using Tiles because they are smaller and easier to work with
             .then(response => {
                 setLangs([...response.data]);
             })
@@ -87,6 +86,8 @@ export default function MixedMap() {
             province.forEach(prov => {
                 const specificGroup = document.getElementById(prov.name);
 
+                if(specificGroup == null)console.log(province.name)
+
                 if (specificGroup) {
                     if(langCriteria === 0) { /// no Lang Selected
                         if (showCriteria === 1) { /// salary
@@ -130,7 +131,6 @@ export default function MixedMap() {
     function clickLangPickerTile(lang){
         setLangCriteria(lang);
     }
-
     const getLangName = (langCriteria) => {
         if (langCriteria === 0) return "all languages";
         const lang = langs.find(lang => lang.lang === langCriteria);
@@ -146,8 +146,8 @@ export default function MixedMap() {
     console.log(province)
     return (
         <div className={`tile-list ${globHover ? "tile-listHover" : ""}`} style={{ width:"100%", overflow:"hidden"}} >
-            <NetherlandsMap className="map">
-            </NetherlandsMap>
+            <SvgMap className="map">
+            </SvgMap>
             <div className="provinceInfo" onClick={provinceInfoClickHandler}>
                 {langCriteria === 0 ?
                     (province.filter(x => x.name === hoveredProvince).map(x => x.listings)[0] === 0 ? "no listings" :
