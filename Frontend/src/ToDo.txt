@@ -1,0 +1,17 @@
+
+-Fix when dropDown menu is revealed and the tileBody is moved to the right there
+is overflow and user can scroll horizontally
+
+-Reformat css to more files
+-Reformat css to have an easily changeable color scheme (set new color Scheme)
+-Reformat css to fix phone compatibility (and better reaction to zoom-in/out)
+
+-Publish site
+-Add javadoc and comments to Frontend
+-Add Documentation (+ how to add new country to list)
+-Fix overall option for job sorting being just the listings
+-Fix newListings being just current listings (in java backend under Lang)
+-Add other Projects tab at the bottom of the DropDownMenu (old processing projects + commit scheduler)
+-Add a way to see programming language ranking list for germany too
+-Add a language switch
+-Fix backend (everything being named after romania)

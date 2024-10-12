@@ -87,6 +87,12 @@
 }
 .sortButton.clicked{
     filter: brightness(0.5);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+.sortButton.clickedMap{
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 .tile-listHover .sortButtonsDiv {
     animation: moveToRight 1s;
