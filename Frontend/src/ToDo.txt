@@ -1,10 +1,10 @@
 
 -Fix when dropDown menu is revealed and the tileBody is moved to the right there
-is overflow and user can scroll horizontally
+is overflow and user can scroll horizontally in Map Endpoints
 
 -Reformat css to more files
--Reformat css to have an easily changeable color scheme (set new color Scheme)
--Reformat css to fix phone compatibility (and better reaction to zoom-in/out)
+-Reformat css to have an w color Scheme)
+-Reformat css to fix phone compatibility (and better reaction easily changeable color scheme (set neo zoom-in/out)
 
 -Publish site
 -Add javadoc and comments to Frontend
@@ -12,6 +12,4 @@ is overflow and user can scroll horizontally
 -Fix overall option for job sorting being just the listings
 -Fix newListings being just current listings (in java backend under Lang)
 -Add other Projects tab at the bottom of the DropDownMenu (old processing projects + commit scheduler)
--Add a way to see programming language ranking list for germany too
 -Add a language switch
--Fix backend (everything being named after romania)
