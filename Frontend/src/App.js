@@ -16,12 +16,13 @@ import { ReactComponent as NetherlandsSvgFlag } from './svgs/Flag_of_the_Netherl
 export let globHover = false;
 let avgSalaryMax = -1 ;
 let listingsMax = -1 ;
+const Api_Url = process.env.REACT_APP_API_URL;
+const Web_Url = process.env.REACT_APP_WEB_URL;
 function App() {
     const [tilez, setTilez] = useState([]);
     const [dataCountry, setDataCountry] = useState([""]) ;
-
     useEffect(() => {
-        axios.get('http://localhost:3030/getTiles'+dataCountry)
+        axios.get(`${Api_Url}/getTiles${dataCountry}`)
             .then(response => {
                 setTilez([...response.data].sort((a, b) => b.rankingCoef - a.rankingCoef));
             })
@@ -31,62 +32,63 @@ function App() {
     }, [dataCountry]);
 
     const mainTriangleColor = getComputedStyle(document.documentElement).getPropertyValue('--4green').trim();
-    const opaqueTriangleColor = getComputedStyle(document.documentElement).getPropertyValue('--4green').trim();
+    const opaqueTriangleColor = getComputedStyle(document.documentElement).getPropertyValue('--5green').trim();
     const viewportWidth = window.innerWidth;
 
     avgSalaryMax = Math.max(...tilez.map(x => x.avgSalary));
     listingsMax = Math.max(...tilez.map(x => x.listings));
 
+    console.log(tilez) ;
+
     return (
-    <Router>
-      <div className="mainDiv">
-          <Routes>
-              <Route path="/" element={TopLeftTriangle(18/100 * viewportWidth, opaqueTriangleColor, mainTriangleColor, opaqueTriangleColor)} />
-              <Route path="/usaMap" element={TopLeftTriangle(18/100 * viewportWidth, "red", "white", "blue")} />
-              <Route path="/nlMap" element={TopLeftTriangle(18/100 * viewportWidth, "red", "white", "blue")} />
-              <Route path="/deMap" element={TopLeftTriangle(18/100 * viewportWidth, "black", "red", "yellow")} />
-          </Routes>
-            <div className={`blurArea ${globHover ? "blurAreaHover" : ""}`}>
+        <Router>
+            <div className="mainDiv">
+                <Routes>
+                    <Route path="/" element={TopLeftTriangle(18/100 * viewportWidth, mainTriangleColor, mainTriangleColor, opaqueTriangleColor)} />
+                    <Route path="/usaMap" element={TopLeftTriangle(18/100 * viewportWidth, "blue", "white", "red")} />
+                    <Route path="/nlMap" element={TopLeftTriangle(18/100 * viewportWidth, "red", "white", "blue")} />
+                    <Route path="/deMap" element={TopLeftTriangle(18/100 * viewportWidth, "black", "red", "yellow")} />
+                </Routes>
+                <div className={`blurArea ${globHover ? "blurAreaHover" : ""}`}>
 
-            <Routes>
-                <Route path="/" element={
-                    <header>
-                          <h1 className="titleHeader"><span className="offsetText"><div className="animateTitle">Live Market Statistics</div></span></h1>
-                          <h1 className="rotatingTextDiv">
-                              <div className="rotatingText">
-                              Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
-                              </div>
-                              <div className="rotatingText">
-                                      Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
-                              </div>
-                          </h1>
-                    </header>
-                }/>
-                <Route path="/nlMap" element={<></>} />
-                <Route path="/deMap" element={<></>} />
-                <Route path="/usaMap" element={<></>} />
-            </Routes>
-          <div className={`mainBody ${globHover ? "mainBodyHover" : ""}`}>
+                    <Routes>
+                        <Route path="/" element={
+                            <header>
+                                <h1 className="titleHeader"><span className="offsetText"><div className="animateTitle">Codemetrics</div></span></h1>
+                                <h1 className="rotatingTextDiv">
+                                    <div className="rotatingText">
+                                        Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
+                                    </div>
+                                    <div className="rotatingText">
+                                        Nr. 1 -> {tilez[0] ? langDecoder(tilez[0].lang) : ""} 🔥 + {tilez[0] ? Math.floor(tilez[0].newListings / tilez[0].listings * 100)/100 : ""}% 📈
+                                    </div>
+                                </h1>
+                            </header>
+                        }/>
+                        <Route path="/nlMap" element={<></>} />
+                        <Route path="/deMap" element={<></>} />
+                        <Route path="/usaMap" element={<></>} />
+                    </Routes>
+                    <div className={`mainBody ${globHover ? "mainBodyHover" : ""}`}>
 
-              <Routes>
-                  <Route path="/nlMap" element={<MixedMap SvgMap={nlSvgMap} provincesEndpoint='http://localhost:3030/getProvinces' tilesEndpoint='http://localhost:3030/getTiles'/>} />
-                  <Route path="/deMap" element={<MixedMap SvgMap={deSvgMap} provincesEndpoint='http://localhost:3030/getProvincesGermany' tilesEndpoint='http://localhost:3030/getTilesGermany'/>} />
-                  <Route path="/usaMap" element={<MixedMap SvgMap={usaSvgMap} provincesEndpoint='http://localhost:3030/getProvincesUsa' tilesEndpoint='http://localhost:3030/getTilesUsa'/>} />
-                  <Route path="/" element={<TileList tileData={tilez} setDataCountry={setDataCountry} />} />
-              </Routes>
+                        <Routes>
+                            <Route path="/nlMap" element={<MixedMap SvgMap={nlSvgMap} provincesEndpoint={`${Api_Url}/getProvinces`} tilesEndpoint={`${Api_Url}/getTiles`} />} />
+                            <Route path="/deMap" element={<MixedMap SvgMap={deSvgMap} provincesEndpoint={`${Api_Url}/getProvincesGermany`} tilesEndpoint={`${Api_Url}/getTilesGermany`} />} />
+                            <Route path="/usaMap" element={<MixedMap SvgMap={usaSvgMap} provincesEndpoint={`${Api_Url}/getProvincesUsa`} tilesEndpoint={`${Api_Url}/getTilesUsa`} />} />
+                            <Route path="/" element={<TileList tileData={tilez} setDataCountry={setDataCountry} />} />
+                        </Routes>
 
-          </div>
-          <div className="ribbon"></div>
-          <footer className="mainPageFooter">
-              <span>💸 best payed programming language</span>
-              <span>📈 most popular programming language</span>
-              <a href="http://localhost:3000/privacy">privacy policy</a>
-              <a href="http://localhost:3000/contact">contact</a>
-          </footer>
+                    </div>
+                    <footer className="mainPageFooter">
+                        <a href={`${Web_Url}/privacy`}>privacy policy</a>
+                        <a href={`${Web_Url}/contact`}>contact</a>
+                        <span>overall : sorting coefficient is calculated as 60% average salary and 40% availability as in relative number of listings</span>
+                        <span>rotating title : the language with the biggest weekly increase in live listings</span>
+                    </footer>
+                </div>
             </div>
-      </div>
         </Router>
-  );
+    );
 }
 function TopLeftTriangle(size, auxColor, mainColor, opaqueColor) {
     // const facadeTriangle = mainPage.Shape({ type: "triangle", size: size, color: mainColor });
@@ -160,17 +162,17 @@ function TopLeftTriangle(size, auxColor, mainColor, opaqueColor) {
                     onMouseLeave={onMouseLeaveHandler}
                 />
                 <div className="dropDown-content">
-                    <a href={"http://localhost:3000"} style={{textDecoration: 'none', color: 'inherit'}}>
+                    <a href={`${Web_Url}`} style={{textDecoration: 'none', color: "black"}}>
                         <div className="dropDown-element">
                             <span className="ddInitialText">HOME</span>
                         </div>
                     </a>
                     <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}>
                         <span className="ddInitialText">MAP</span>
-                        <a href = "http://localhost:3000/usaMap" className="ddElement-option" style={{animationDelay: '0ms', height: '33.33%'}}>Usa</a>
-                        <a href = "http://localhost:3000/nlMap" className="ddElement-option" style={{animationDelay: '200ms', height: '33.33%'}}>Netherlands</a>
-                        <a href = "http://localhost:3000/deMap" className="ddElement-option" style={{animationDelay: '400ms', height: '33.33%'}}>Germany</a>
-                        </div>
+                        <a href={`${Web_Url}/usaMap`} className="ddElement-option" style={{animationDelay: '0ms', height: '33.33%'}}>Usa</a>
+                        <a href={`${Web_Url}/nlMap`} className="ddElement-option" style={{animationDelay: '200ms', height: '33.33%'}}>Netherlands</a>
+                        <a href={`${Web_Url}/deMap`} className="ddElement-option" style={{animationDelay: '400ms', height: '33.33%'}}>Germany</a>
+                    </div>
                     <div className="dropDown-element" onClick={handleDropDownClick} onMouseLeave={onMouseLeaveHandler2}>
                         <span className="ddInitialText">☰</span>
                         <div className="ddElement-option" style={{animationDelay: '0ms', height: '25%'}}>option1</div>
@@ -228,7 +230,7 @@ export function TileList({ tileData, setDataCountry }) {
     }, [tileData, sortCriteria]);
 
     function sortBySalary(event){
-         setSortCriteria(1) ;
+        setSortCriteria(1) ;
         const buttons = document.querySelectorAll('.sortButton');
         buttons.forEach(button => button.classList.remove('clicked'));
         event.target.classList.add('clicked');
@@ -276,7 +278,7 @@ export function TileList({ tileData, setDataCountry }) {
                 <button className="sortButton" onClick={sortByListings}>listings</button>
                 <button className="sortButton" onClick={sortByAllMetrics}>overall</button>
             </div>
-            <div className="sortButtonsDiv" style={{top:"15%", width: "6%"}}>
+            <div id="countriesSortButtonDiv" className="sortButtonsDiv">
                 <button className="sortButton" onClick={setCountryDataUsa}><UsaSvgFlag style={{ height: "100%", width: "100%", pointerEvents: "none"  }} /></button>
                 <button className="sortButton" onClick={setCountryDataDe}><GermanySvgFlag style={{ height: "100%", width: "100%", pointerEvents: "none"  }} /></button>
                 <button className="sortButton" onClick={setCountryDataNl}><NetherlandsSvgFlag style={{height: "100%", width: "100%", pointerEvents: "none" }} /></button>

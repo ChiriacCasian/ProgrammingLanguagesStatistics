@@ -35,7 +35,7 @@
 
 /* Main Page */
 .mainDiv {
-    background-color: var(--3green);
+    background-color: var(--4green);
     position: relative;
 }
 .mainBody {
@@ -55,10 +55,11 @@
 
     position: absolute;
     right: 10%;
-    top: 35px;
-    height: 10%;
-    border-radius: 20px;
-    background-color: var(--3green);
+    top: 2%;
+    height: 15%;
+    width: 6%;
+    border-radius: 10px;
+    background-color: var(--4green);
 
     display: flex;
     flex-direction: column;
@@ -67,10 +68,10 @@
 .sortButton{
     animation: FadeIn 1s forwards;
     animation-delay: 1s ;
-    font-size: 1em;
+    font-size: 1.4vh;
 
     height: 33.33%;
-    padding: 20px;
+    padding: 20%;
     border: 0;
     background-color: transparent;
     font-weight: bold;
@@ -81,17 +82,20 @@
     align-items: center;
     z-index: 10;
 }
+#countriesSortButtonDiv{
+    top: 20%
+}
 .sortButton:hover{
     filter: brightness(0.5);
     cursor: pointer;
 }
 .sortButton.clicked{
     filter: brightness(0.5);
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 .sortButton.clickedMap{
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 .tile-listHover .sortButtonsDiv {
@@ -170,16 +174,16 @@
 }
 
 .titleHeader {
-    background-color: var(--violet);
+    background-color: var(--7green);
     color: var(--bone);
-    font-size: 6em;
+    font-size: 6vh;
     text-align: center;
     padding: 1.5em;
     margin: 0;
 }
 .offsetText{
-    display: inline-block; /* Ensure the span is treated as a block for transform to work */
-    transform: translateX(7vw) ;
+    display: inline-block; /* Use this to move the Codemetrics title to the right */
+    transform: translateX(0vw) ;
 }
 .animateTitle{
     animation-name: fadeIn ;
@@ -199,7 +203,7 @@
     display: inline-block;
     animation: rotateText 10s linear infinite;
     width: 100%;
-    font-size: 1.6em;
+    font-size: 2.8vh;
     margin:0 ;
     animation-duration: 8s;
 }
@@ -208,23 +212,16 @@
     animation-delay: 6.2s; /* Adjust the delay to match the duration of the animation */
 }
 .rotatingTextDiv {
-    background-color: var(--2green);
+    background-color: var(--4green);
     color: var(--bone);
     text-align: center;
+    white-space: nowrap;
     padding: 0.4em;
     margin: 0;
-    border-top: 10px solid black;
-    border-bottom: 10px solid black;
+    border-top: 7px solid black;
+    border-bottom: 7px solid black;
     overflow: hidden;
     display: flex;
-}
-
-.headerRibbon {
-    background-color: var(--4green);
-}
-.ribbon {
-    background-color: var(--violet);
-    height: 5%;
 }
 
 .blurAreaHover{
@@ -261,7 +258,7 @@
     height: 6vh;
     margin: 0.5em;
 
-    font-size: 1.5em;
+    font-size: 1.6vh;
     font-weight: bold;
     justify-content: right;
     align-items: center;
@@ -271,6 +268,80 @@
     width: 100%;
     display: flex;
 }
+@media (max-width: 450px) {
+    .tile-list {
+        width: 90%;
+        display: flex;
+        flex-direction: column; /* Align the tiles vertically */
+        align-items: center; /* Center the tiles horizontally */
+        padding: 20px;
+
+        user-select: none;
+    }
+    .tile{
+        position: relative;
+
+        animation: fadeInFromLeft 2s forwards;
+        visibility: hidden;
+        background: radial-gradient(ellipse, #03666680, #036666A0);
+        color: var(--bone);
+        height: 4vh;
+        margin: 0.5em;
+
+        font-size: 1vh;
+        font-weight: bold;
+        justify-content: right;
+        align-items: center;
+
+        box-sizing: border-box;
+        border-radius: 20px;
+        width: 90%;
+        display: flex;
+        right : 6% ;
+    }
+    .tile .slash {
+        position: relative;
+        font-size: 1.6vh; /* Start with a small font size */
+        transform: scale(3.2) translateY(-6%); /* Adjust scale based on height */
+        line-height: 1; /* Prevent extra spacing */
+        user-select: none;
+    }
+    .tile .tileRight{
+        padding: 6px;
+        width: auto;
+    }
+    .tile .tileLang{
+        position: absolute;
+        left: 12%;
+        font-size: 1.5vh;
+    }
+
+    .sortButtonsDiv{
+        animation: fadeInFromLeft 2s forwards ;
+        animation-delay: 1.2s;
+        visibility: hidden;
+
+        position: absolute;
+        right: 2%;
+        top: 35px;
+        height: 14%;
+        width: 10%;
+        border-radius: 10px;
+        background-color: var(--4green);
+
+        display: flex;
+        flex-direction: column;
+        z-index: 5;
+    }
+    .tile .tilePlacing{
+        filter: drop-shadow(0 0 0rem black);
+    }
+
+    #countriesSortButtonDiv{
+        top: 30vh ;
+    }
+}
+
 
 .tilePlacing{
     filter: drop-shadow(0 0 0.75rem black);
@@ -297,7 +368,7 @@
 }
 .slash {
     position: relative;
-    font-size: 2.5em; /* Start with a small font size */
+    font-size: 3.2vh; /* Start with a small font size */
     transform: scale(2.5) translateY(-10%); /* Adjust scale based on height */
     line-height: 1; /* Prevent extra spacing */
     user-select: none;
@@ -305,7 +376,7 @@
 .dropDown-element{
     height: 33.33%;
     width: 100%;
-    background-color: var(--2green);
+    background-color: white ;
     box-shadow: inset 0 0 0.9rem black;
     position: relative;
     z-index: 10;
@@ -346,12 +417,13 @@
     animation: fadeInFromTop2 200ms ease-in-out forwards;
     pointer-events: visible;
 }
+
 .dropDown-element:not(:hover) .ddElement-option {
     pointer-events: none;
     display: none;
 }
 .ddInitialText{
-    font-size: 2em;
+    font-size: 2vh;
     font-weight: bold;
     pointer-events: none;
     z-index: 25;
@@ -371,9 +443,10 @@
     z-index: 30;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 1.25em;
-    color: inherit;
+    font-size: 1.25vh;
     font-weight: bold;
+    color: black ;
+
 
     visibility: hidden;
     display: flex; /* Make it a flex container !!! */
@@ -392,11 +465,13 @@
     min-height: 15vh;
     bottom: 0 ;
     position: relative;
+    padding: 5vh ;
 
+    border-top: 5px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em;
+    font-size: 1.6vh;
     color: var(--bone);
     flex-direction: column;
 }

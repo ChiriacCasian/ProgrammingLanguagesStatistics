@@ -13,3 +13,5 @@ is overflow and user can scroll horizontally in Map Endpoints
 -Fix newListings being just current listings (in java backend under Lang)
 -Add other Projects tab at the bottom of the DropDownMenu (old processing projects + commit scheduler)
 -Add a language switch
+
+-Add a good Readme.md

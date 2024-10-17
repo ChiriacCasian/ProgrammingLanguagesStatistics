@@ -15,13 +15,7 @@
 
     --bone: #ECE2D0;
 }
-.map {
-    height: 100%;
-    transform: translateX(30%) scale(4.2) translateY(-1%);
-    transform-origin: top ;
-    padding: 50px;
-    position: relative;
-}
+
 .hovered{
     filter: brightness(70%);
     cursor: pointer;
@@ -51,7 +45,7 @@
     flex-direction: row;
     align-items: center;
 
-    font-size: 1.25em;
+    font-size: 1.5vh;
     font-weight: bold;
     color: var(--bone);
 }
@@ -73,9 +67,11 @@
     stroke-opacity:1
 }
 #deMap .province {
-    stroke-width: 2px; /* Set your desired stroke-width */
+    stroke-width: 3px;
 }
-
+#usMap .province {
+    stroke-width: 3px;
+}
 .tile-listHover .salariesListingsDiv {
     visibility: hidden;
 }
@@ -84,7 +80,6 @@
 }
 
 .salariesListingsDiv{
-    transform: translateY(0);         /* Initial state */
     transition: transform 1s ease-in-out;
     background-color: black;
     border-radius: 20px;
@@ -104,8 +99,8 @@
     user-select: none;
 }
 .salariesListingsButton{
+    font-size: 1.5vh;
     position: relative;
-    font-size: 1.25em;
     font-weight: bold;
     color: var(--bone);
     text-align: center;
@@ -148,7 +143,7 @@
     width: 100%;
     padding-bottom: 10px;
     border-radius: 20px;
-    font-size: 1em;
+    font-size: 1.2vh;
     font-weight: bold;
     color: var(--bone) ;
     text-align: center;
@@ -201,7 +196,13 @@
         visibility: visible;
     }
 }
-
+#nlMap {
+    height: 100%;
+    transform: translateX(30%) scale(4.2) translateY(-1%);
+    transform-origin: top ;
+    padding: 50px;
+    position: relative;
+}
 #deMap {
     height: 100%;
     width: 100%;
@@ -210,11 +211,91 @@
     padding: 50px;
     position: relative;
 }
-#usMap{
-    height: 100%;
-    width: 100%;
-    transform: translateX(15%) scale(1.2) translateY(25%);
-    transform-origin: center;
-    padding: 50px;
-    position: relative;
+#usMap {
+    transform: scale(1.2) translateX(5%) translateY(30%);
+    width: 110vh;
+    display: grid;
+    place-items: center;     /* Centers both vertically and horizontally */
+    height: 80vh;
+}
+
+@media (max-width: 450px) {
+    .salariesListingsDiv{
+        transition: transform 1s ease-in-out;
+        background-color: black;
+        border-radius: 20px;
+        font-size: 1.25vh;
+
+
+        position: absolute;
+        top: 25% ;
+        left: 10%;
+        height: 8%;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        cursor: pointer;
+        z-index: 90;
+
+        user-select: none;
+    }
+    .salariesListingsButton{
+        font-size: 1.25vh;
+        position: relative;
+        font-weight: bold;
+        color: var(--bone);
+        text-align: center;
+        border: 0;
+        width: 50%;
+        height: 100%;
+        background-color: black;
+        cursor: pointer;
+
+        z-index: 100;
+    }
+    #nlMap {
+        height: 100%;
+        transform: translateX(25%) scale(1.8) translateY(8%);
+        transform-origin: top ;
+        padding: 50px;
+        position: relative;
+    }
+    #deMap {
+        height: 110vh;
+        width: 120vh;
+        transform: translateX(10%) scale(0.5) translateY(10%);
+        transform-origin: center;
+        padding: 50px;
+        position: relative;
+    }
+    #usMap {
+        transform: scale(0.35) translateX(-10%) translateY(40%);
+        width: 130vh;
+        display: grid;
+        place-items: center;     /* Centers both vertically and horizontally */
+        height: 80vh;
+    }
+    .provinceInfo {
+        visibility: hidden;
+        height: 8%;
+        width: 80vw ;
+        background-color: red;
+
+        position: relative;
+        left: 0 ;
+        top: -10% ;
+
+        border-radius: 20px;
+        border: 0.5em solid black;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+
+        font-size: 1.25vh;
+        font-weight: bold;
+        color: var(--bone);
+    }
 }
