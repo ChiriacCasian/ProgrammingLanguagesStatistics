@@ -7,8 +7,9 @@
   \____\___/ \__,_|\___|_| |_| |_|\___|\__|_|  |_|\___|___/
                                                                                                         </pre>
 </div>
-http://codemetrics.info
+
 [//]: # (https://patorjk.com/software/taag/#p=display&f=Ivrit&t=Commi%20tScheduler)
+http://codemetrics.info
 ## Features
 - a list of programming languages each with a median salary, number of listings and number of new listings this week
 - each progamming language has nl/de/usa specific data and list can be sorted by listings/salary/custom ranking coefficient but also by country
