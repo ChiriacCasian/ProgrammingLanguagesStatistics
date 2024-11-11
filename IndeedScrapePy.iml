@@ -11,5 +11,7 @@
     <orderEntry type="jdk" jdkName="openjdk-21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="leaflet" level="application" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:3.3.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:3.3.4" level="project" />
   </component>
 </module>

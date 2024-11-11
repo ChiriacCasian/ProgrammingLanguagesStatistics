@@ -28,3 +28,4 @@ The frontend is implemented in React, the scraping is done by a python scraper u
     - language switch for nl/de/en
     - refactoring some of the frontend to be more manageable and split into more classes
     - better layout for mobile users
+

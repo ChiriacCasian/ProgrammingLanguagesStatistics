@@ -279,9 +279,9 @@ export function TileList({ tileData, setDataCountry }) {
                 <button className="sortButton" onClick={sortByAllMetrics}>overall</button>
             </div>
             <div id="countriesSortButtonDiv" className="sortButtonsDiv">
-                <button className="sortButton" onClick={setCountryDataUsa}><UsaSvgFlag style={{ height: "100%", width: "100%", pointerEvents: "none"  }} /></button>
-                <button className="sortButton" onClick={setCountryDataDe}><GermanySvgFlag style={{ height: "100%", width: "100%", pointerEvents: "none"  }} /></button>
-                <button className="sortButton" onClick={setCountryDataNl}><NetherlandsSvgFlag style={{height: "100%", width: "100%", pointerEvents: "none" }} /></button>
+                <button className="sortButton" onClick={setCountryDataUsa}><UsaSvgFlag style={{ height: "auto", width: "100%", pointerEvents: "none"  }} /></button>
+                <button className="sortButton" onClick={setCountryDataDe}><GermanySvgFlag style={{ height: "auto", width: "100%", pointerEvents: "none"  }} /></button>
+                <button className="sortButton" onClick={setCountryDataNl}><NetherlandsSvgFlag style={{height: "auto", width: "100%", pointerEvents: "none" }} /></button>
             </div>
         </div>
     );

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.commitscheduler.commitscheduler6.PersistentStateVariables">
+    <option name="maxCommits" value="3" />
+    <option name="minCommits" value="1" />
+    <option name="sshKey" value="git@github.com:ChiriacCasian/ProgrammingLanguagesStatistics.git" />
+  </component>
+</project>
