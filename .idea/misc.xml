@@ -6,6 +6,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$USER_HOME$/Downloads/Java/Java" />
+    <file type="web" url="file://$PROJECT_DIR$/Java" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
