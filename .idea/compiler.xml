@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="DataLoader" />
+      </profile>
+    </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="IndeedScrapePy.Java" target="21" />
+      <module name="IndeedScrapePy.Java.main" target="21" />
+      <module name="IndeedScrapePy.Java.test" target="21" />
+      <module name="Java" target="21" />
+      <module name="Java.main" target="21" />
+      <module name="Java.test" target="21" />
       <module name="JavaBackend" target="21" />
       <module name="JavaBackend (1)" target="21" />
       <module name="JavaBackend (2)" target="21" />
@@ -9,6 +23,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DataLoader" options="-parameters" />
       <module name="Java" options="" />
       <module name="JavaBackend" options="-parameters" />
       <module name="JavaBackend (1)" options="-parameters" />

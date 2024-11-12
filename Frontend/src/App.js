@@ -25,6 +25,7 @@ function App() {
         axios.get(`${Api_Url}/getTiles${dataCountry}`)
             .then(response => {
                 setTilez([...response.data].sort((a, b) => b.rankingCoef - a.rankingCoef));
+                console.log("getTiles")
             })
             .catch(error => {
                 console.error("There was an error fetching the tiles!", error);
@@ -279,9 +280,9 @@ export function TileList({ tileData, setDataCountry }) {
                 <button className="sortButton" onClick={sortByAllMetrics}>overall</button>
             </div>
             <div id="countriesSortButtonDiv" className="sortButtonsDiv">
-                <button className="sortButton" onClick={setCountryDataUsa}><UsaSvgFlag style={{ height: "auto", width: "100%", pointerEvents: "none"  }} /></button>
-                <button className="sortButton" onClick={setCountryDataDe}><GermanySvgFlag style={{ height: "auto", width: "100%", pointerEvents: "none"  }} /></button>
-                <button className="sortButton" onClick={setCountryDataNl}><NetherlandsSvgFlag style={{height: "auto", width: "100%", pointerEvents: "none" }} /></button>
+                <button className="sortButton" onClick={setCountryDataUsa}><UsaSvgFlag style={{width: "80%", pointerEvents: "none"  }} /></button>
+                <button className="sortButton" onClick={setCountryDataDe}><GermanySvgFlag style={{width: "80%", pointerEvents: "none"  }} /></button>
+                <button className="sortButton" onClick={setCountryDataNl}><NetherlandsSvgFlag style={{width: "80%", pointerEvents: "none" }} /></button>
             </div>
         </div>
     );

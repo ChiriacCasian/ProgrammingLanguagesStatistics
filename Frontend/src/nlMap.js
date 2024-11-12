@@ -21,6 +21,7 @@ export default function MixedMap({SvgMap, provincesEndpoint, tilesEndpoint}) {
         axios.get(provincesEndpoint)
             .then(response => {
                 setProvinces([...response.data]);
+                console.log("getProvinces")
             })
             .catch(error => {
                 console.error("There was an error with /getProvinces!", error);
@@ -30,6 +31,7 @@ export default function MixedMap({SvgMap, provincesEndpoint, tilesEndpoint}) {
         axios.get(tilesEndpoint) /// using Tiles because they are smaller and easier to work with
             .then(response => {
                 setLangs([...response.data]);
+                console.log("getTiles")
             })
             .catch(error => {
                 console.error("There was an error with /getTiles!", error);

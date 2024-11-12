@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IndeedScrapePy.iml" filepath="$PROJECT_DIR$/IndeedScrapePy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IndeedScrapePy.Java.main.iml" filepath="$PROJECT_DIR$/.idea/modules/IndeedScrapePy.Java.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IndeedScrapePy.Java.test.iml" filepath="$PROJECT_DIR$/.idea/modules/IndeedScrapePy.Java.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Java.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Java.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Java.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Java.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/PythonBackend/pythonModule.iml" filepath="$PROJECT_DIR$/PythonBackend/pythonModule.iml" />
     </modules>
   </component>
