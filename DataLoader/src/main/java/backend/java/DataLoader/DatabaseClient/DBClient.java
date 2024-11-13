@@ -66,55 +66,36 @@ public class DBClient {
         return -1 ;
     }
 
-    public static List<Integer> queryDbAvgSalaryByLang(int cityCode, int countryCode) { /// for each language
-        /// List.of("id", "lang", "assoc_lang", "city", "salary", "date", "lvl")
-        try {
-            DbConnection db = connectToDb("3406", "indeed_db", "root", "12345rita").get();
-
-            ResultSet resultSet = db.getResultSet(String.format("""
+    public static List<Integer> queryDbAvgSalaryByLang(int cityCode, int countryCode, List<String> languages) { /// for each language
+        List<Integer> avgSalaryList = new ArrayList<>() ;
+        int f = 1 ;
+        for(String lang : languages){
+            avgSalaryList.add(queryDb(String.format("""
                     SELECT avg(salary)
                     FROM indeed_db.jobstable
                     WHERE country = %d
                     AND city = %d
-                    GROUP BY lang
-                    """, countryCode, cityCode)).get();
-            resultSet.next() ; /// position the cursor before reading the data
-
-            List<Integer> avgSalaries = new ArrayList<>() ;
-            while (resultSet.next()) { // iterate through the result set
-                avgSalaries.add(resultSet.getInt(1)); // add each value to the list
-            }
-            db.endConnection();
-            return avgSalaries ;
-        } catch (Exception e) {
-            e.printStackTrace();
+                    AND lang = %d
+                    """, countryCode, cityCode, f))) ;
+            f += 1 ;
         }
-        return null ;
+        return avgSalaryList ;
     }
 
-    public static List<Integer> queryDbListingsByLang(int cityCode, int countryCode) {
-        try {
-            DbConnection db = connectToDb("3406", "indeed_db", "root", "12345rita").get();
-
-            ResultSet resultSet = db.getResultSet(String.format("""
+    public static List<Integer> queryDbListingsByLang(int cityCode, int countryCode, List<String> languages) {
+        List<Integer> listingsByLang = new ArrayList<>() ;
+        int f = 1 ;
+        for(String lang : languages){
+            listingsByLang.add(queryDb(String.format("""
                     SELECT count(id)
                     FROM indeed_db.jobstable
                     WHERE country = %d
                     AND city = %d
-                    GROUP BY lang
-                    """, countryCode, cityCode)).get();
-            resultSet.next() ; /// position the cursor before reading the data
-
-            List<Integer> avgSalaries = new ArrayList<>() ;
-            while (resultSet.next()) { // iterate through the result set
-                avgSalaries.add(resultSet.getInt(1)); // add each value to the list
-            }
-            db.endConnection();
-            return avgSalaries ;
-        } catch (Exception e) {
-            e.printStackTrace();
+                    AND lang = %d
+                    """, countryCode, cityCode, f))) ;
+            f += 1 ;
         }
-        return null ;
+        return listingsByLang ;
     }
 
 //    public static int update_avgSalaryByProvince(int lang, String province) { ///

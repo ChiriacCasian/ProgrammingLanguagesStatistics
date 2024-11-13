@@ -92,6 +92,27 @@ public class ProvinceClient implements ClientInterface<Province> {
             "Wisconsin",
             "Wyoming"
     ) ;
+    private final List<String> Languages = List.of(
+            "none",
+            "java",
+            "javascript",
+            "python",
+            "c++",
+            "kotlin",
+            "c#",
+            "swift",
+            "php",
+            "ruby",
+            "sql",
+            "html",
+            "r",
+            "go",
+            "rust",
+            "scala",
+            "dart",
+            "matlab",
+            "cobol"
+    ) ;
     private final List<List<String>> ProvinceNameList = List.of(
             NlProvinces,
             DeProvinces,
@@ -136,8 +157,8 @@ public class ProvinceClient implements ClientInterface<Province> {
                     WHERE country = %d
                     AND city = %d
                     """, countryCode, f)) ;
-            List<Integer> avgSalaryByLang = DBClient.queryDbAvgSalaryByLang(f, countryCode) ;
-            List<Integer> listingsByLang = DBClient.queryDbListingsByLang(f, countryCode) ;
+            List<Integer> avgSalaryByLang = DBClient.queryDbAvgSalaryByLang(f, countryCode, Languages) ;
+            List<Integer> listingsByLang = DBClient.queryDbListingsByLang(f, countryCode, Languages) ;
             provincesRez.add(new Province(name, id, avgSalary, listings, avgSalaryByLang, listingsByLang)) ;
         }
         provincesRez.get(0).setAvgSalaryByLang(provincesRez.get(1).getAvgSalaryByLang());

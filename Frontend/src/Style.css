@@ -68,7 +68,7 @@
 .sortButton{
     animation: FadeIn 1s forwards;
     animation-delay: 1s ;
-    font-size: 1.4vh;
+    font-size: 0.8vw;
 
     height: 33.33%;
     padding: 20%;
@@ -332,6 +332,9 @@
         display: flex;
         flex-direction: column;
         z-index: 5;
+    }
+    .sortButton{
+     font-size: 1.6vw;
     }
     .tile .tilePlacing{
         filter: drop-shadow(0 0 0rem black);
