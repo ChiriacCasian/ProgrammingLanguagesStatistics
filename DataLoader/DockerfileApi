@@ -1,0 +1,15 @@
+# Use the official OpenJDK 21 image as the base image for this Dockerfile.
+# This provides a Java runtime environment to run the Spring Boot application.
+FROM openjdk:21
+
+# Declare a build argument (JAR_FILE) that can be set when building the Docker image.
+# It points to the location of the Spring Boot application JAR file in the target directory.
+ARG JAR_FILE=target/*.jar
+
+# Copy the built JAR file from your local machine (inside ./target) into the Docker image.
+# The JAR file is renamed to app.jar within the container.
+# !!! this requires to build the backend every time you make modifications and relaunch the container
+COPY ./target/DataLoader-0.0.1-SNAPSHOT.jar app.jar
+
+# The container will start by executing 'java -jar /app.jar', which runs the copied JAR file.
+ENTRYPOINT ["java", "-jar", "/app.jar"]

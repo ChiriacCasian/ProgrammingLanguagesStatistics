@@ -13,6 +13,12 @@ public class DataLoaderApplication {
 		SpringApplication.run(DataLoaderApplication.class, args);
 		ProvinceClient.getInstance().cacheProvinces() ;
 		TileClient.getInstance().cacheTiles() ;
+		System.out.println("Finished loading data to cache");
+//		System.out.println(DBClient.queryDb("""
+//    			SELECT count(id)
+//                FROM indeed_db.jobstable
+//                limit 100
+//				""")) ;
 	}
 
 }

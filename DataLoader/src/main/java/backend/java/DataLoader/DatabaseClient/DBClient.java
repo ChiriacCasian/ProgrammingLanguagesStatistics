@@ -36,7 +36,7 @@ public class DBClient {
     private static Optional<DbConnection> connectToDb(
             String port, String database_name, String username, String password) {
 
-        String url = String.format("jdbc:mysql://localhost:%S/%S", port, database_name);  // Replace with your database URL
+        String url = String.format("jdbc:mysql://host.docker.internal:%s/%s", port, database_name);  // Replace with your database URL
         Connection conn = null;
         Statement statement = null;
         try {

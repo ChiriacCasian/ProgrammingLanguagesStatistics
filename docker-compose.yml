@@ -1,0 +1,36 @@
+name : scraperspy
+
+services :
+  api :
+    build :
+      context : ./DataLoader
+      dockerfile: DockerfileApi
+    restart: unless-stopped
+    volumes:
+      - ./DataLoader:/app
+#      map the local DataLoader directory to the app container
+    networks:
+      - scraperspy
+    ports:
+      - 3030:3030
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: DockerfileFrontend
+    restart: unless-stopped
+    env_file:
+      - ./Frontend/.env
+    volumes:
+      - ./Frontend:/app
+    networks:
+      - scraperspy
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+
+
+networks:
+  scraperspy:
+    driver: bridge
