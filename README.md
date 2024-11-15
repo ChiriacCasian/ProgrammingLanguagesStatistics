@@ -17,6 +17,7 @@ http://codemetrics.info
 - each progamming language has nl/de/usa specific data and list can be sorted by listings/salary/custom ranking coefficient but also by country
 - for each country interactive svg map that provides data on province specific salary/listings
 - easy functionality for adding new countries in the frontend, just provide the new SVG for the new country and communication endpoints to the backend
+- Dockerized both the Spring Boot and the React Servers
 
 ### Purpose
 Code metrics is a IT market analysis tool that uses a scraper to gather data about the current state of the job market and
