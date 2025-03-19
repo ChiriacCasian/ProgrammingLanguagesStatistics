@@ -9,7 +9,7 @@
 </div>
 
 [//]: # (https://patorjk.com/software/taag/#p=display&f=Ivrit&t=Commi%20tScheduler)
-http://codemetrics.info
+https://codemetrics.info
 [![Demonstration](https://img.youtube.com/vi/mosv04ryBvM/maxresdefault.jpg)](https://youtu.be/mosv04ryBvM)
 
 ## Features
