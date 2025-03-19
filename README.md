@@ -25,8 +25,6 @@ compiles it into an easily interpretable UI, its scope is to inform users about 
 ### Implementation
 The frontend is implemented in React, the scraping is done by a python scraper using scrapFly and the data manipulation is done in Java, all data is stored in a MySql database SpringBoot and React servers are hosted locally.
 ### To Do 
-    - certifications for https connection for the React server too (already done for the SpringBoot Server)
     - language switch for nl/de/en
     - refactoring some of the frontend to be more manageable and split into more classes
-    - better layout for mobile users
 
